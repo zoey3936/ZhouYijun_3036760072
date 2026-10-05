@@ -26,7 +26,6 @@ ax.bar([i + width/2 for i in x], [means.loc[0, "FTE2"], means.loc[1, "FTE2"]],
 ax.set_xticks(x)
 ax.set_xticklabels(["Pennsylvania", "New Jersey"])
 ax.set_ylabel("Full-Time Equivalent Employment (FTE)")
-ax.set_title("Figure 1. Employment in PA and NJ Before/After the Minimum Wage Increase")
 ax.legend()
 
 import os

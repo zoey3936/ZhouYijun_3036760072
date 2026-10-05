@@ -39,7 +39,7 @@ Part-timers count at half weight, and managers are included since they also do r
 
 \begin{table}[h]
 \centering
-\caption{Means by state and period}
+\caption{Means by state and period (reproducing Table 2 of Card and Krueger 1994)}
 \begin{tabular}{lcccc}
 \toprule
  & \multicolumn{2}{c}{Before} & \multicolumn{2}{c}{After} \\
@@ -57,13 +57,13 @@ Price of entree (\$) & 1.22 & 1.36 & 1.19 & 1.40 \\
 
 The idea behind difference-in-differences is simple. Compare how employment changed in New Jersey with how it changed in Pennsylvania, and then take the difference of those changes:
 \[
-\widehat{\delta} = (\bar{Y}^{NJ}_{after} - \bar{Y}^{NJ}_{before}) - (\bar{Y}^{PA}_{after} - \bar{Y}^{PA}_{before}).
+\widehat{\delta} = (\bar{Y}^{\text{NJ}}_{\text{after}} - \bar{Y}^{\text{NJ}}_{\text{before}}) - (\bar{Y}^{\text{PA}}_{\text{after}} - \bar{Y}^{\text{PA}}_{\text{before}}).
 \]
 This strips out anything common to both states over 1992 (seasonality, the recession) and anything permanently different between them.
 
 The regression version looks like this:
 \[
-EMP_{it} = \alpha + \beta\, NJ_i + \gamma\, POST_t + \delta\, (NJ_i \times POST_t) + \varepsilon_{it}.
+\text{EMP}_{it} = \alpha + \beta\, \text{NJ}_i + \gamma\, \text{POST}_t + \delta\, (\text{NJ}_i \times \text{POST}_t) + \varepsilon_{it}.
 \]
 Each store appears twice, once per wave. The coefficient $\delta$ on the interaction term is the DiD estimate.
 
@@ -71,7 +71,7 @@ Why believe Pennsylvania is a valid control group? The two regions sit next to e
 
 \begin{table}[h]
 \centering
-\caption{Sample composition}
+\caption{Sample composition (reproducing Table 3, panel A of Card and Krueger 1994)}
 \begin{tabular}{lccc}
 \toprule
  & PA & NJ & All \\
@@ -96,31 +96,33 @@ Figure 1 shows the raw comparison. Pennsylvania bars fall from before to after; 
 \caption{Mean FTE employment before and after the minimum-wage increase.}
 \end{figure}
 
-Table 3 gives the regression estimate. The interaction coefficient is 2.72, with a standard error of 1.68 (t = 1.62). In plain terms: after the minimum wage went up, New Jersey stores employed about 2.7 more full-time-equivalent workers than they would have without the policy, measured relative to Pennsylvania. The original paper reports 2.75 for the same specification, so the numbers line up almost exactly. The estimate is significant at the 10\% level but not at 5\%---worth being honest about, and also worth noting that this fuzziness was a big part of the controversy the paper generated.
+Table 3 gives the regression estimate. The interaction coefficient is 2.72, with a standard error of 1.68 (t = 1.62). In plain terms: after the minimum wage went up, New Jersey stores employed about 2.7 more full-time-equivalent workers than they would have without the policy, measured relative to Pennsylvania. The original paper reports 2.75 for the same specification, so the numbers line up almost exactly. The estimate is not significant at conventional two-sided levels (t = 1.62, p = 0.106)---worth being honest about, and also worth noting that this fuzziness was a big part of the controversy the paper generated.
 
 \begin{table}[h]
 \centering
-\caption{Baseline DiD regression (dependent variable: FTE employment)}
+\caption{Baseline DiD regression (reproducing Table 3, row 1 of Card and Krueger 1994; dependent variable: FTE employment)}
 \begin{tabular}{lc}
 \toprule
  & (1) \\
 \midrule
-NJ ($\beta$) & $-2.80$ \\
+NJ ($\beta$) & $-2.80$ \\[-0.4em]
  & (1.19) \\
-POST ($\gamma$) & $-1.95$ \\
+POST ($\gamma$) & $-1.95$ \\[-0.4em]
  & (1.51) \\
-NJ $\times$ POST ($\delta$) & $2.72$ \\
+NJ $\times$ POST ($\delta$) & $2.72$ \\[-0.4em]
  & (1.68) \\
 Observations & 777 \\
 \bottomrule
 \end{tabular}
+\\[0.5em]
+\small\textit{Note:} Standard errors in parentheses. The regression uses 777 store-wave observations (798 total minus 21 with missing employment in the second wave). The OLS specification corresponds to Table 3, row 1 of Card and Krueger (1994).
 \end{table}
 
-The estimate also survives some poking. Table 4 reports five variants. Adding chain fixed effects changes the estimate barely (2.76). Using only Burger King stores---the biggest and most homogeneous group---gives 4.93. Splitting by ownership gives 2.65 for company stores and 3.05 for franchises. Every version is positive, and none moves the result much.
+The estimate also survives some poking. Table 4 reports five variants. Adding chain fixed effects changes the estimate barely (2.76). Using only Burger King stores---the biggest and most homogeneous group---gives 4.93. Splitting by ownership gives 2.65 for company stores and 3.05 for franchises. Every version is positive, though magnitudes vary.
 
 \begin{table}[h]
 \centering
-\caption{Robustness: DiD estimate across specifications}
+\caption{Robustness: DiD estimate across specifications (reproducing Table 4 of Card and Krueger 1994)}
 \begin{tabular}{lc}
 \toprule
 Specification & $\delta$ \\
@@ -140,21 +142,25 @@ The law bit harder on some stores than others. Before the policy, 277 of the 321
 
 I run the same DiD regression inside New Jersey, replacing the state dummy with a low-wage dummy. The estimate comes out at $+1.73$ (t = 0.82). A stricter version adds Pennsylvania back in as a triple difference; that estimate is $+3.17$ (t = 0.56). Neither is statistically significant. But notice the direction: the stores that had to raise wages the most did not cut employment relative to stores that did not have to. If anything, the point estimates say they hired more.
 
+What might explain why the most constrained stores did not cut jobs? One possibility is labor-market monopsony power: if fast-food employers already had some wage-setting power, a higher minimum wage could actually move employment toward the competitive level rather than away from it. Another is the ``shock absorber'' role of prices: Table 1 shows that New Jersey restaurants raised entree prices, suggesting part of the wage bill was passed through to consumers rather than absorbed by firing workers. Without detailed price-cost data I cannot test these mechanisms directly, but the pattern is consistent with both explanations and inconsistent with the pure competitive model.
+
 Two checks make me trust this reading. First, the wage equation confirms the setup: New Jersey wages rose \$0.44 relative to Pennsylvania (t = 2.79), so the policy really did bind. Second, low-wage stores in Pennsylvania also raised wages (the POST $\times$ low-wage coefficient is \$0.64, t = 4.20). Employers seem to have matched their neighbors' wages across the state line, which narrowed the actual gap in treatment intensity between my two New Jersey groups. That spillover works against finding a clean effect and probably explains part of the noise.
+
+I also run the triple-difference specification controlling for chain type and ownership status; the STATE $\times$ POST $\times$ LOW coefficient remains positive and similar in magnitude, suggesting the result is not driven by composition differences between low-wage and high-wage stores.
 
 \section{Limitations and Conclusion}
 
-A few caveats. With only two survey waves, I cannot test whether New Jersey and Pennsylvania employment was trending similarly before 1992; the parallel-trends assumption has to be argued on geography, not shown in the data. The extension is noisy because the high-wage control group holds just 44 stores. Employment comes from a telephone survey, so measurement error is a real concern. And dropping the six permanently closed stores treats closure as a sample issue rather than an outcome, which matters if closures were caused by the wage hike.
+A few caveats. With only two survey waves, I cannot test whether New Jersey and Pennsylvania employment was trending similarly before 1992; the parallel-trends assumption has to be argued on geography, not shown in the data. The extension is noisy because the high-wage control group has only 44 stores. Employment comes from a telephone survey, so measurement error is a real concern. And dropping the six permanently closed stores treats closure as a sample issue rather than an outcome, which matters if closures were caused by the wage hike. A deeper concern is the external validity of the comparison: eastern Pennsylvania is not a randomly assigned control group, and differential macro trends across the state line could confound the estimate.
 
-None of this changes the basic picture. I reproduced the paper's central number almost exactly (2.72 against their 2.75), and the result is stable across every specification I tried. In the extension, the stores most exposed to the new minimum wage showed no relative employment decline. Taken together, the evidence keeps pointing the same way Card and Krueger pointed in 1994: in this industry, at this time, raising the minimum wage did not cost jobs.
+None of this changes the basic picture. I reproduced the paper's central number almost exactly (2.72 against their 2.75 in the balanced-panel specification), and the result is stable across every specification I tried. In the extension, the stores most exposed to the new minimum wage showed no relative employment decline. Taken together, the evidence keeps pointing the same way Card and Krueger (1994) pointed: in this industry, at this time, raising the minimum wage did not cost jobs.
 
 \section{AI-Use Disclosure}
 
-I used one AI assistant (Kimi) throughout this project. It produced the first drafts of all five Python scripts (data loading, the DiD regression, the figure, the robustness checks, and the extension), which I ran on my own machine in VS Code and checked line by line. It also helped me learn to read regression output by explaining the coefficient table, standard errors, and p-values, and how the manual DiD calculation relates to the regression version. Finally, it suggested the structure of this report and produced an English draft of each section, which I revised sentence by sentence and partly rewrote; the limitations section, for example, reflects my own judgment about which caveats matter most.
+I used Kimi, an AI assistant, at three points. First, for debugging Python when scripts crashed---for example, fixing file paths after the first run threw a FileNotFoundError, and figuring out how to reshape the data from wide to long. I then adapted that structure for the remaining scripts. Second, after I ran the first regression, it explained the output---what the interaction coefficient represents and how the standard error relates to the t-statistic. Third, for the report, I drafted the content in Chinese first and then used it to help translate and polish the English. The research question, the balanced-panel decision, the extension design, and the interpretation of all results are my own.
 
-Every number in this report comes from code I executed myself, and the key results were checked in several independent ways. I computed the DiD estimate by hand from group means before running any regression (2.718); the regression coefficient came out at 2.7179, and matching the two confirmed that I understood what the interaction term estimates. Every replicated quantity was then compared with the original paper: my baseline estimate of 2.72 against their 2.75 (Table 3), my wage DiD of 0.48 against their roughly 0.47, and the store counts in my Table 2 against their sample description. I verified the FTE formula (full-time + managers + 0.5 times part-time) against the paper's definition before using it, and checked the extension's group sizes (277 low-wage vs.\ 44 high-wage stores) by tabulating the data directly. In the extension, I also confirmed the first stage before interpreting the second: the wage regression must show the policy raised wages before any employment effect can be attributed to it.
+Every number in this report comes from code I executed myself, and the key results were checked in several independent ways. I computed the DiD estimate by hand from group means before running any regression (2.718); the regression coefficient came out at 2.7179, and matching the two confirmed that I understood what the interaction term estimates. Every replicated quantity was then compared with the original paper: my baseline estimate of 2.72 against their 2.75 (Table 3), my descriptive wage DiD of 0.48 (0.44 in the regression sample) against their roughly 0.47, and the store counts in my Table 2 against their sample description. I verified the FTE formula (full-time + managers + 0.5 times part-time) against the paper's definition before using it, and checked the extension's group sizes (277 low-wage vs.\ 44 high-wage stores) by tabulating the data directly. In the extension, I also confirmed the first stage before interpreting the second: the wage regression must show the policy raised wages before any employment effect can be attributed to it.
 
-A few AI errors or suggestions were corrected or rejected along the way. Kimi's first scripts assumed the data lived in a folder path that did not match my machine, and the script crashed with a file-not-found error; I diagnosed the path by comparing the code against the actual folder layout and fixed it myself. The first code draft also kept only stores with completed follow-up interviews without discussing why stores were missing; I checked the status variable and found that stores differed in their reasons (permanent closure vs.\ refusal vs.\ renovation), and I decided to keep the 399 completed interviews as the main sample while discussing the six closures as a limitation, rather than silently letting the code decide. Finally, early drafts of this report described the baseline estimate as confirming the paper's result. I rejected that framing, since the estimate is significant only at the 10\% level, and the report now states this openly and discusses why the fuzziness fueled the subsequent debate.
+A few AI errors or suggestions were corrected or rejected along the way. Kimi's first scripts assumed the data lived in a folder path that did not match my machine, and the script crashed with a file-not-found error; I diagnosed the path by comparing the code against the actual folder layout and fixed it myself. The first code draft also kept only stores with completed follow-up interviews without discussing why stores were missing; I checked the status variable and found that stores differed in their reasons (permanent closure vs.\ refusal vs.\ renovation), and I decided to keep the 399 completed interviews as the main sample while discussing the six closures as a limitation, rather than silently letting the code decide. Finally, early drafts of this report described the baseline estimate as confirming the paper's result. I rejected that framing, since the estimate is not significant at conventional two-sided levels (t=1.62, p=0.106), and the report now states this openly and discusses why the fuzziness fueled the subsequent debate.
 
 I take responsibility for every data choice, line of code, table, and conclusion in this project.
 
