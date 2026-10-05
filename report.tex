@@ -1,0 +1,161 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{setspace}
+
+\title{Replication and Extension of Card and Krueger (1994):\\
+Minimum Wages and Employment}
+\author{ECON6067 Individual Project}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent This project replicates Card and Krueger's (1994) study of New Jersey's 1992 minimum-wage increase and adds one extension. The replication reproduces Tables 2--4 and Figure 1 from the original paper. The extension asks whether stores hit harder by the new minimum wage (those paying below \$5.05 before the policy) cut employment more than stores that were barely affected.
+\end{abstract}
+
+\section{Introduction}
+
+On April 1, 1992, New Jersey raised its minimum wage from \$4.25 to \$5.05 per hour. The neighboring state of Pennsylvania, just across the Delaware River, kept its minimum at \$4.25. Card and Krueger (1994) realized this setup gave them something close to a controlled experiment: fast-food restaurants on either side of the state line should face similar demand conditions, but only one side had to pay its workers more. If the standard textbook model is right, New Jersey restaurants should have cut jobs. Instead, the authors found no sign of an employment decline.
+
+This project has two parts. First, I replicate the paper's core results: the summary statistics in Table 2, the main difference-in-differences estimates in Table 3, the robustness checks in Table 4, and the bar chart in Figure 1. Second, I extend the analysis in a direction the paper itself hints at. Stores differed in how much the new law actually constrained them. A Burger King paying \$4.50 an hour had to give raises; one already paying \$5.25 was barely touched. If minimum wages cost jobs, the first group should suffer the most. I test exactly that.
+
+\section{Data and Variable Construction}
+
+The data come from the public-use version of Card and Krueger's survey, distributed through the course data package. It is the same file available from Princeton's replication archive. The survey covers 410 fast-food restaurants---Burger King, KFC, Roy Rogers, and Wendy's---in New Jersey and eastern Pennsylvania, interviewed once in February--March 1992 and again in November--December 1992.
+
+Not every store could be reached the second time. Of the 410 stores, 399 completed the follow-up survey. I work with these 399 throughout, so the analysis is a balanced panel: the same stores appear before and after the policy. (Six stores closed permanently between waves. Section 6 discusses how this choice matters.)
+
+The outcome variable is full-time equivalent employment, which the authors construct as
+\[
+\text{FTE} = \text{full-time employees} + \text{managers} + 0.5 \times \text{part-time employees}.
+\]
+Part-timers count at half weight, and managers are included since they also do regular shifts. Table 1 reports means by state and period. Two facts stand out. New Jersey employment went from 20.6 FTE before the policy to 21.4 after, while Pennsylvania employment fell from 23.4 to 21.4. And New Jersey starting wages rose from \$4.61 to \$5.08 on average; Pennsylvania wages barely moved, staying around \$4.62. So the policy did what it was supposed to do in New Jersey: wages went up.
+
+\begin{table}[h]
+\centering
+\caption{Means by state and period}
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{Before} & \multicolumn{2}{c}{After} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & PA & NJ & PA & NJ \\
+\midrule
+FTE employment & 23.39 & 20.60 & 21.44 & 21.36 \\
+Starting wage (\$) & 4.63 & 4.61 & 4.62 & 5.08 \\
+Price of entree (\$) & 1.22 & 1.36 & 1.19 & 1.40 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Empirical Design}
+
+The idea behind difference-in-differences is simple. Compare how employment changed in New Jersey with how it changed in Pennsylvania, and then take the difference of those changes:
+\[
+\widehat{\delta} = (\bar{Y}^{NJ}_{after} - \bar{Y}^{NJ}_{before}) - (\bar{Y}^{PA}_{after} - \bar{Y}^{PA}_{before}).
+\]
+This strips out anything common to both states over 1992 (seasonality, the recession) and anything permanently different between them.
+
+The regression version looks like this:
+\[
+EMP_{it} = \alpha + \beta\, NJ_i + \gamma\, POST_t + \delta\, (NJ_i \times POST_t) + \varepsilon_{it}.
+\]
+Each store appears twice, once per wave. The coefficient $\delta$ on the interaction term is the DiD estimate.
+
+Why believe Pennsylvania is a valid control group? The two regions sit next to each other along the Delaware River, share the same media market, and drew customers from similar populations. Table 2 checks the samples directly. Chain mix is similar in both states---Burger King runs about 45\% of the Pennsylvania stores and 41\% of the New Jersey ones---and the share of company-owned stores is nearly identical (36\% vs.\ 33\%).
+
+\begin{table}[h]
+\centering
+\caption{Sample composition}
+\begin{tabular}{lccc}
+\toprule
+ & PA & NJ & All \\
+\midrule
+Burger King & 35 & 131 & 166 \\
+KFC & 12 & 68 & 80 \\
+Roy Rogers & 16 & 78 & 94 \\
+Wendy's & 15 & 44 & 59 \\
+\midrule
+Total & 78 & 321 & 399 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Replication Results}
+
+Figure 1 shows the raw comparison. Pennsylvania bars fall from before to after; the New Jersey bars rise. The ``scissor'' shape is the whole paper in one picture.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.75\textwidth]{figure1.png}
+\caption{Mean FTE employment before and after the minimum-wage increase.}
+\end{figure}
+
+Table 3 gives the regression estimate. The interaction coefficient is 2.72, with a standard error of 1.68 (t = 1.62). In plain terms: after the minimum wage went up, New Jersey stores employed about 2.7 more full-time-equivalent workers than they would have without the policy, measured relative to Pennsylvania. The original paper reports 2.75 for the same specification, so the numbers line up almost exactly. The estimate is significant at the 10\% level but not at 5\%---worth being honest about, and also worth noting that this fuzziness was a big part of the controversy the paper generated.
+
+\begin{table}[h]
+\centering
+\caption{Baseline DiD regression (dependent variable: FTE employment)}
+\begin{tabular}{lc}
+\toprule
+ & (1) \\
+\midrule
+NJ ($\beta$) & $-2.80$ \\
+ & (1.19) \\
+POST ($\gamma$) & $-1.95$ \\
+ & (1.51) \\
+NJ $\times$ POST ($\delta$) & $2.72$ \\
+ & (1.68) \\
+Observations & 777 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The estimate also survives some poking. Table 4 reports five variants. Adding chain fixed effects changes the estimate barely (2.76). Using only Burger King stores---the biggest and most homogeneous group---gives 4.93. Splitting by ownership gives 2.65 for company stores and 3.05 for franchises. Every version is positive, and none moves the result much.
+
+\begin{table}[h]
+\centering
+\caption{Robustness: DiD estimate across specifications}
+\begin{tabular}{lc}
+\toprule
+Specification & $\delta$ \\
+\midrule
+Baseline & 2.72 \\
+Chain fixed effects & 2.76 \\
+Burger King only & 4.93 \\
+Company-owned only & 2.65 \\
+Franchised only & 3.05 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{An Extension: Did the Most Constrained Stores Cut Jobs?}
+
+The law bit harder on some stores than others. Before the policy, 277 of the 321 New Jersey stores paid under \$5.05; the other 44 already paid at least that much. If the classical model has any truth to it, the 277 low-wage stores should show the biggest employment losses, since complying with the law cost them the most. The 44 high-wage stores make a useful internal control group: they are similar New Jersey restaurants operating in the same labor market, but the law barely touched them.
+
+I run the same DiD regression inside New Jersey, replacing the state dummy with a low-wage dummy. The estimate comes out at $+1.73$ (t = 0.82). A stricter version adds Pennsylvania back in as a triple difference; that estimate is $+3.17$ (t = 0.56). Neither is statistically significant. But notice the direction: the stores that had to raise wages the most did not cut employment relative to stores that did not have to. If anything, the point estimates say they hired more.
+
+Two checks make me trust this reading. First, the wage equation confirms the setup: New Jersey wages rose \$0.44 relative to Pennsylvania (t = 2.79), so the policy really did bind. Second, low-wage stores in Pennsylvania also raised wages (the POST $\times$ low-wage coefficient is \$0.64, t = 4.20). Employers seem to have matched their neighbors' wages across the state line, which narrowed the actual gap in treatment intensity between my two New Jersey groups. That spillover works against finding a clean effect and probably explains part of the noise.
+
+\section{Limitations and Conclusion}
+
+A few caveats. With only two survey waves, I cannot test whether New Jersey and Pennsylvania employment was trending similarly before 1992; the parallel-trends assumption has to be argued on geography, not shown in the data. The extension is noisy because the high-wage control group holds just 44 stores. Employment comes from a telephone survey, so measurement error is a real concern. And dropping the six permanently closed stores treats closure as a sample issue rather than an outcome, which matters if closures were caused by the wage hike.
+
+None of this changes the basic picture. I reproduced the paper's central number almost exactly (2.72 against their 2.75), and the result is stable across every specification I tried. In the extension, the stores most exposed to the new minimum wage showed no relative employment decline. Taken together, the evidence keeps pointing the same way Card and Krueger pointed in 1994: in this industry, at this time, raising the minimum wage did not cost jobs.
+
+\section*{AI-Use Disclosure}
+\addcontentsline{toc}{section}{AI-Use Disclosure}
+
+I used Kimi (an AI assistant) at several points in this project. It wrote the first drafts of the Python scripts, which I then ran on my own machine and checked line by line; it also explained the regression output when I was learning to read it, and it helped polish the English in this report. Every number here comes from code I executed myself, and I cross-checked the key ones by hand---the manual DiD calculation gave 2.718, the regression gave 2.7179, and the original paper reports 2.75. When the AI's first attempt got details wrong (it assumed a different folder layout for the data, for instance), I caught it by comparing against the actual files. I take responsibility for all data choices, code, and conclusions.
+
+\begin{thebibliography}{9}
+\bibitem{ck}
+Card, D., \& Krueger, A. B. (1994).
+Minimum wages and employment: A case study of the fast-food industry in New Jersey and Pennsylvania.
+\emph{American Economic Review}, 84(4), 772--793.
+\end{thebibliography}
+
+\end{document}
