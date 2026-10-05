@@ -28,3 +28,4 @@ Package 03 expands to approximately **28.39 GB**. Allow at least **40 GB of free
 The CSV contents are unchanged from the supplied data archive. Shared datasets appear only once across the four packages. Package 02 expands to approximately 1.24 GB; package 04 to approximately 39 MB.
 
 Use these files for the course project within the applicable data-access terms. Do not include restricted raw data in a public GitHub repository; document its location and access requirements instead.
+# ck-replication
