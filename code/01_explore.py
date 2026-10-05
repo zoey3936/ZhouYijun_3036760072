@@ -4,7 +4,7 @@
 import pandas as pd
 
 # 读取数据
-df = pd.read_csv("data/public.csv")
+df = pd.read_csv("data/raw/public.csv")
 print(f"数据行数: {df.shape[0]}, 列数: {df.shape[1]}")
 
 # ---- 构造核心变量 FTE（全时当量员工数）----

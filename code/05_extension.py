@@ -5,7 +5,9 @@ import pandas as pd
 import statsmodels.formula.api as smf
 import os
 
-df = pd.read_csv("data/public.csv")
+os.makedirs("outputs/tables", exist_ok=True)
+
+df = pd.read_csv("data/raw/public.csv")
 df["FTE"] = df["EMPFT"] + df["NMGRS"] + 0.5 * df["EMPPT"]
 d = df[df["STATUS2"] == 1].copy()
 d["FTE2"] = d["EMPFT2"] + d["NMGRS2"] + 0.5 * d["EMPPT2"]
@@ -45,10 +47,10 @@ m_wage = smf.ols("WAGE ~ STATE*POST*LOW", data=pd.concat([
 print("\n===== 工资的三重差分（验证低薪店确实被处理得更狠）=====")
 print(m_wage.summary().tables[1])
 
-out = open("output/extension.txt", "w", encoding="utf-8")
+out = open("outputs/tables/extension.txt", "w", encoding="utf-8")
 out.write("=== 扩展：低薪店 vs 高薪店 ===\n\n")
 out.write("【NJ 内部 DiD】\n" + str(m_nj.summary().tables[1]) + "\n\n")
 out.write("【三重差分 DDD】\n" + str(m_ddd.summary().tables[1]) + "\n\n")
 out.write("【工资 DDD（验证处理强度）】\n" + str(m_wage.summary().tables[1]) + "\n")
 out.close()
-print("\n结果已写入 output/extension.txt")
+print("\n结果已写入 outputs/tables/extension.txt")

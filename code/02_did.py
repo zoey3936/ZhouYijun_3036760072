@@ -4,7 +4,7 @@
 import pandas as pd
 import statsmodels.formula.api as smf
 
-df = pd.read_csv("data/public.csv")
+df = pd.read_csv("data/raw/public.csv")
 
 # 构造 FTE（政策前）
 df["FTE"] = df["EMPFT"] + df["NMGRS"] + 0.5 * df["EMPPT"]

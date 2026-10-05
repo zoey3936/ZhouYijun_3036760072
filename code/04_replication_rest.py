@@ -1,14 +1,16 @@
 # 04_replication_rest.py
 # 第四步：补全 Table 2、Table 3 构成、Table 4 稳健性
-# 所有结果写入 output/tables.txt，直接可以贴进报告
+# 所有结果写入 outputs/tables.txt，直接可以贴进报告
 
 import pandas as pd
 import statsmodels.formula.api as smf
 import os
 
-out = open("output/tables.txt", "w", encoding="utf-8")
+os.makedirs("outputs/tables", exist_ok=True)
 
-df = pd.read_csv("data/public.csv")
+out = open("outputs/tables/tables.txt", "w", encoding="utf-8")
+
+df = pd.read_csv("data/raw/public.csv")
 df["FTE"] = df["EMPFT"] + df["NMGRS"] + 0.5 * df["EMPPT"]
 d = df[df["STATUS2"] == 1].copy()
 d["FTE2"] = d["EMPFT2"] + d["NMGRS2"] + 0.5 * d["EMPPT2"]
@@ -45,4 +47,4 @@ w("Table 4-5. 只用加盟店",
   str(smf.ols("EMP ~ STATE + POST + STATE:POST", data=long[long.CO_OWNED==0]).fit().params.round(3)))
 
 out.close()
-print("全部表格已写入 output/tables.txt")
+print("全部表格已写入 outputs/tables/tables.txt")

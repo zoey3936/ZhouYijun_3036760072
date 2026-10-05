@@ -4,7 +4,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("data/public.csv")
+df = pd.read_csv("data/raw/public.csv")
 df["FTE"] = df["EMPFT"] + df["NMGRS"] + 0.5 * df["EMPPT"]
 d = df[df["STATUS2"] == 1].copy()
 d["FTE2"] = d["EMPFT2"] + d["NMGRS2"] + 0.5 * d["EMPPT2"]
@@ -30,7 +30,6 @@ ax.set_title("Figure 1. Employment in PA and NJ Before/After the Minimum Wage In
 ax.legend()
 
 import os
-os.makedirs("output", exist_ok=True)
-plt.savefig("output/figure1.png", dpi=200, bbox_inches="tight")
-print("图已保存到 output/figure1.png")
-plt.show()
+os.makedirs("outputs/figures", exist_ok=True)
+plt.savefig("outputs/figures/figure1.png", dpi=200, bbox_inches="tight")
+print("图已保存到 outputs/figures/figure1.png")

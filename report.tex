@@ -7,8 +7,10 @@
 
 \title{Replication and Extension of Card and Krueger (1994):\\
 Minimum Wages and Employment}
-\author{ECON6067 Individual Project}
+\author{ZHOU Yijun 3036760072\\
+ECON6067 Individual Project}
 \date{October 2026}
+\onehalfspacing
 
 \begin{document}
 \maketitle
@@ -146,10 +148,15 @@ A few caveats. With only two survey waves, I cannot test whether New Jersey and 
 
 None of this changes the basic picture. I reproduced the paper's central number almost exactly (2.72 against their 2.75), and the result is stable across every specification I tried. In the extension, the stores most exposed to the new minimum wage showed no relative employment decline. Taken together, the evidence keeps pointing the same way Card and Krueger pointed in 1994: in this industry, at this time, raising the minimum wage did not cost jobs.
 
-\section*{AI-Use Disclosure}
-\addcontentsline{toc}{section}{AI-Use Disclosure}
+\section{AI-Use Disclosure}
 
-I used Kimi (an AI assistant) at several points in this project. It wrote the first drafts of the Python scripts, which I then ran on my own machine and checked line by line; it also explained the regression output when I was learning to read it, and it helped polish the English in this report. Every number here comes from code I executed myself, and I cross-checked the key ones by hand---the manual DiD calculation gave 2.718, the regression gave 2.7179, and the original paper reports 2.75. When the AI's first attempt got details wrong (it assumed a different folder layout for the data, for instance), I caught it by comparing against the actual files. I take responsibility for all data choices, code, and conclusions.
+I used one AI assistant (Kimi) throughout this project. It produced the first drafts of all five Python scripts (data loading, the DiD regression, the figure, the robustness checks, and the extension), which I ran on my own machine in VS Code and checked line by line. It also helped me learn to read regression output by explaining the coefficient table, standard errors, and p-values, and how the manual DiD calculation relates to the regression version. Finally, it suggested the structure of this report and produced an English draft of each section, which I revised sentence by sentence and partly rewrote; the limitations section, for example, reflects my own judgment about which caveats matter most.
+
+Every number in this report comes from code I executed myself, and the key results were checked in several independent ways. I computed the DiD estimate by hand from group means before running any regression (2.718); the regression coefficient came out at 2.7179, and matching the two confirmed that I understood what the interaction term estimates. Every replicated quantity was then compared with the original paper: my baseline estimate of 2.72 against their 2.75 (Table 3), my wage DiD of 0.48 against their roughly 0.47, and the store counts in my Table 2 against their sample description. I verified the FTE formula (full-time + managers + 0.5 times part-time) against the paper's definition before using it, and checked the extension's group sizes (277 low-wage vs.\ 44 high-wage stores) by tabulating the data directly. In the extension, I also confirmed the first stage before interpreting the second: the wage regression must show the policy raised wages before any employment effect can be attributed to it.
+
+A few AI errors or suggestions were corrected or rejected along the way. Kimi's first scripts assumed the data lived in a folder path that did not match my machine, and the script crashed with a file-not-found error; I diagnosed the path by comparing the code against the actual folder layout and fixed it myself. The first code draft also kept only stores with completed follow-up interviews without discussing why stores were missing; I checked the status variable and found that stores differed in their reasons (permanent closure vs.\ refusal vs.\ renovation), and I decided to keep the 399 completed interviews as the main sample while discussing the six closures as a limitation, rather than silently letting the code decide. Finally, early drafts of this report described the baseline estimate as confirming the paper's result. I rejected that framing, since the estimate is significant only at the 10\% level, and the report now states this openly and discusses why the fuzziness fueled the subsequent debate.
+
+I take responsibility for every data choice, line of code, table, and conclusion in this project.
 
 \begin{thebibliography}{9}
 \bibitem{ck}
